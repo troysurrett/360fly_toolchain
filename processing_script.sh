@@ -6,5 +6,6 @@ done
 cd equirectangular
 mkdir ready_for_davinci
 for i in `ls ./*.MP4`
-  ffmpeg -y -i $i -c:v mpeg4 -force_key_frames "expr:gte(t,n_forced*1)" -r ntsc-film -b:v 250000k -c:a pcm_s16le ./ready_for_davinci/$i
 do
+  ffmpeg -y -i $i -c:v mpeg4 -force_key_frames "expr:gte(t,n_forced*1)" -r ntsc-film -b:v 250000k -c:a pcm_s16le ./ready_for_davinci/$i
+done
