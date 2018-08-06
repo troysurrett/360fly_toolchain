@@ -4,6 +4,7 @@ ONE-TIME:
 Generate map from https://github.com/prouast/equirectangular-remap/blob/master/projection.c using this command:
 
 ./project -x fly360_x.pgm -y fly360_y.pgm -h 2880 -w 2880 -r 1440 -c 2880 -m equirectangular --verbose
+-> TODO: Investigate the 360Fly Director max of 3840x1920
 
 install ffmpeg, obvs
 
@@ -14,7 +15,17 @@ ffmpeg -i <INPUT_FOLDER>/FLY00101.MP4 -i fly360_x.pgm -i fly360_y.pgm -lavfi rem
 But then run ffmpeg on EACH FILE, AGAIN so that Davinci will import it:
 ffmpeg -y -i <INPUT>.MP4 -c:v mpeg4 -force_key_frames "expr:gte(t,n_forced*1)" -r ntsc-film -b:v 250000k -c:a pcm_s16le <OUTPUT>.MOV
 
+ -> For some reason, this step is destroying the quality.
+
 Okay, now import them into Davinci along with something that 360Fly Director exported.
 Use the transform tool to put the "blindspot" fill under the picture by overlaying the desired output over the Director video.
+Looks like you need to have the fill video cropped to Top: 640
+
+The video you want to show is transformed like so:
+Position Y: 190
+Zoom Y: 0.733
+
+
 
 Do your editing and render. When you inject the metadata things will look right.
+
