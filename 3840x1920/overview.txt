@@ -1,0 +1,1 @@
+~/git_repos/equirectangular-remap/project -x fly360_3840x1920_x.pgm -y fly360_3840x1920_y.pgm -h 2880 -w 2880 -r 1920 -c 3840 -m equirectangular --verbose
