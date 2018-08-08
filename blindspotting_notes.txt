@@ -1,0 +1,21 @@
+So, I think I have to redevelop the map to output a squashed aspect ratio, so I can then add padding
+and when I do the resize...wait...
+
+what if I pad left and right, then resize, then crop the left and right padding off?
+
+ -> So, this was close, but the aspect ratio comes out wrong
+ffmpeg -y -i ./FLY00101.mp4 -vf "pad=width=2880:height=2000:y=0:x=0,scale=w=2880:h=1440" -f mp4 ./blindspotted/FLY00101_just_pad_and_scale.MP4
+
+
+2000 - 1440 = 560px
+2880 + 560*2 = 4000px
+ffmpeg -y -i ./FLY00101.mp4 -vf "pad=width=4000:height=2000:y=0:x=-1,scale=h=1440,crop=w=2880:x=560" -f mp4 ./blindspotted/FLY00101_experimental.MP4
+
+ffmpeg -y -i ./FLY00101.mp4 -vf "pad=width=4000:height=2000:y=0:x=-1,crop=w=2880:x=560" -f mp4 ./blindspotted/FLY00101_just_pad_and_crop.MP4
+ffmpeg -y -i ./FLY00101.mp4 -vf "pad=width=4000:height=2000:y=0:x=-1,scale=h=1440" -f mp4 ./blindspotted/FLY00101_just_pad_and_scale.MP4
+
+I need the scaling to result in a width that is 4000, but a height that is 1440.
+4000 / 1440 = 2.77777~
+sooooo
+2000 * 2.77777 = 5,555
+ffmpeg -y -i ./FLY00101.mp4 -vf "pad=width=5555:height=2000:y=0:x=-1,scale=h=1440,crop=w=2880:x=560" -f mp4 ./blindspotted/FLY00101_double_experiment.MP4
