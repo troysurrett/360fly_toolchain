@@ -8,24 +8,21 @@ Generate map from https://github.com/prouast/equirectangular-remap/blob/master/p
 
 install ffmpeg, obvs
 
-Run ffmpeg on EACH FILE:
+Clone this git repo: https://github.com/google/spatial-media
+Make sure you have Python 2.7 installed
+
+Now, the script will run ffmpeg on EACH FILE:
 
 ffmpeg -i <INPUT_FOLDER>/FLY00101.MP4 -i fly360_x.pgm -i fly360_y.pgm -lavfi remap <OUTPUT_FOLDER>/FLY00101-equi.MP4
 
-But then run ffmpeg on EACH FILE, AGAIN so that Davinci will import it:
+But then run ffmpeg on each file, AGAIN so that Davinci will import it:
 ffmpeg -y -i <INPUT>.MP4 -c:v mpeg4 -force_key_frames "expr:gte(t,n_forced*1)" -r ntsc-film -b:v 250000k -c:a pcm_s16le <OUTPUT>.MOV
 
- -> For some reason, this step is destroying the quality.
+And this step adds the blindspot in at the same time (arguments omitted here).
 
-Okay, now import them into Davinci along with something that 360Fly Director exported.
-Use the transform tool to put the "blindspot" fill under the picture by overlaying the desired output over the Director video.
-Looks like you need to have the fill video cropped to Top: 640
+Then run the python script to add in the spherical metadata:
+python ~/git_repos/spatial-media/spatialmedia -i <INPUT file name> <OUTPUT file name>
 
-The video you want to show is transformed like so:
-Position Y: 190
-Zoom Y: 0.733
+The fully developed, and working, script is in 3840x1920 folder. After the script runs, you probably want to delete all but the finished, injected videos. I'm able to set this loose on a directory of videos copied from the 360Fly and let it run overnight, then wake up to a set of finished videos, ready to edit.
 
-
-
-Do your editing and render. When you inject the metadata things will look right.
-
+Personally, the next thing I do is open Garmin VIRB Edit and import all the videos and the GPS data and do gauge overlays. Then I render that, and the output from Garmin VIRB Edit is what actually goes into Davinci Resolve for timeline editing, adding music, text, noise reduction, etc.
