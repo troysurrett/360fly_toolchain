@@ -18,7 +18,7 @@ do
   ffmpeg -y -i $i -vf "pad=width=5334:height=2667:y=0:x=-1,scale=h=1920,crop=w=3840:x=747" -f mp4 ./blindspotted/$i
 done
 
-cd ready_for_davinci
+cd blindspotted
 for i in `ls *.MP4`
 do
   python ~/git_repos/spatial-media/spatialmedia -i $i injected_$i
