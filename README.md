@@ -19,5 +19,3 @@ The blindspot size was found via trial and error. I do not have good math for it
 I did not develop a map and a script for all the resolutions that 360Fly Director has. I only need the big one.
 
 There are random, rambling notes in here that I made to preserve my sanity while I figured this out. I know nothing about video processing.
-
-I believe the bitrate setting (`-b:v 250000k`) is way too high and inflating the filesize of the output unnecessarily. At some point I'll get around to figuring out what the right number is.
